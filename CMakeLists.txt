@@ -3,5 +3,5 @@ project(ngramdictionary)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp NGramDictionaryManager.cpp NGramDictionaryManager.hpp)
+set(SOURCE_FILES src/ngramdictionary/main.cpp src/ngramdictionary/NGramDictionaryManager.cpp src/ngramdictionary/NGramDictionaryManager.hpp)
 add_executable(ngramdictionary ${SOURCE_FILES})

@@ -53,13 +53,18 @@ vector<wstring> NGramDictionaryManager::split_line(wstring &line) {
     return tokens;
 }
 
+auto cmp = [](std::pair<wstring,int> const & a, std::pair<wstring,int> const & b)
+{
+    return a.second != b.second ?  a.second > b.second : a.first < b.first;
+};
 void NGramDictionaryManager::print_dictionary(int limit) {
     int i = 0;
-    for (map<wstring, int>::iterator it = dictionary.begin();
-            it != dictionary.end(); ++it)
+    vector<std::pair<wstring, int>> items = convert_dict_to_vector_of_pairs();
+    std::sort(items.begin(), items.end(), cmp);
+    for (auto item : items)
     {
         if (i < limit) {
-            wcout << it->first << " - " << it->second << endl;
+            wcout << item.first << " - " << item.second << endl;
             i++;
         }
     }
@@ -107,7 +112,6 @@ vector<wstring> NGramDictionaryManager::create_stop_words_dict() {
                 stop_words.push_back(line);
             }
         }
-        dict.close();
     } catch (const std::exception& e)
     {
         std::cout << e.what();
@@ -126,4 +130,14 @@ void NGramDictionaryManager::remove_stop_words(vector<wstring> &tokens) {
             tokens.erase(it2);
         }
     }
+}
+
+vector<std::pair<wstring, int>> NGramDictionaryManager::convert_dict_to_vector_of_pairs() {
+    vector<pair<wstring, int>> result(dictionary.size());
+    for (map<wstring, int>::iterator it = dictionary.begin();
+         it != dictionary.end(); ++it)
+    {
+        result.push_back(pair<wstring, int>(it->first, it->second));
+    }
+    return result;
 }

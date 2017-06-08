@@ -33,6 +33,8 @@ private:
     std::vector<std::wstring> split_line(std::wstring &line);
     std::vector<std::wstring> create_stop_words_dict();
     void remove_stop_words(std::vector<std::wstring> &tokens);
+
+    std::vector<std::pair<std::wstring, int>> convert_dict_to_vector_of_pairs();
 };
 
 
