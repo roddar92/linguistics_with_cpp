@@ -17,24 +17,28 @@ public:
     }
 
     ~NGramDictionaryManager() {
-        dictionary.clear();
+        ngram_dictionary.clear();
+        positions.clear();
         stop_words.clear();
     }
 
     void create_dictionary(std::string const &input_file, int ngram_length);
-    void print_dictionary(int limit = 20);
-    void save_dictionary_to_file(std::string const &output_file);
+
 
 private:
-    std::map<std::wstring, int> dictionary;
-    std::vector<std::wstring> stop_words;
+    std::map<std::string, std::set<std::string>> ngram_dictionary;
+    std::map<std::string, std::vector<std::pair<int, int>>> positions;
+    std::vector<std::string> stop_words;
 
-    std::vector<std::wstring> get_ngrams(std::wstring const &word, int ng_len);
-    std::vector<std::wstring> split_line(std::wstring &line);
-    std::vector<std::wstring> create_stop_words_dict();
-    void remove_stop_words(std::vector<std::wstring> &tokens);
+    std::vector<std::string> get_ngrams(std::string const &word, int ng_len);
+    std::vector<std::string> split_text(std::string &line, bool collapse = true);
+    std::vector<std::string> create_stop_words_dict();
+    void save_dictionary_to_file();
+    void remove_stop_words(std::vector<std::string> &tokens);
 
-    std::vector<std::pair<std::wstring, int>> convert_dict_to_vector_of_pairs();
+    bool endsWith(const std::string &s, const std::string &suffix);
+
+    bool startsWith(const std::string &s, const std::string &prefix);
 };
 
 

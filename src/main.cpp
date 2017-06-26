@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#include "NGramDictionaryManager.hpp"
+#include "ngramdictionary/NGramDictionaryManager.hpp"
 
 using namespace std;
 int main(int argc, char **argv) {
